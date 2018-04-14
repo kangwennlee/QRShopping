@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
             } else {
                 //Scan successful
-                Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getApplicationContext(), ProductDetail.class);
                 intent.putExtra("product", result.getContents());
                 startActivity(intent);
