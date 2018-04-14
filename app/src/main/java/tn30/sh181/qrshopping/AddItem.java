@@ -7,12 +7,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -45,21 +45,20 @@ import tn30.sh181.qrshopping.FirebaseClass.Product;
 
 public class AddItem extends AppCompatActivity {
 
-    Button buttonInsert,buttonUpload;
-    EditText editTextID,editTextName,editTextCategory,editTextPrice;
-    ImageView imageView;
-    byte[] imageData;
-    private static final String TAG = AddItem.class.getSimpleName();
-    Activity activity;
-    ProgressDialog progressDialog;
-
     public static final int CAMERA_PERMISSIONS_REQUEST = 2;
     public static final int CAMERA_IMAGE_REQUEST = 3;
     public static final String FILE_NAME = "temp.jpg";
     static final int REQUEST_IMAGE_CAPTURE = 1;
+    private static final String TAG = AddItem.class.getSimpleName();
     private static final int GALLERY_PERMISSIONS_REQUEST = 0;
     private static final int GALLERY_IMAGE_REQUEST = 1;
     private static final int MAX_DIMENSION = 1200;
+    Button buttonInsert, buttonUpload;
+    EditText editTextID, editTextName, editTextCategory, editTextPrice;
+    ImageView imageView;
+    byte[] imageData;
+    Activity activity;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,12 +148,12 @@ public class AddItem extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         // Display the first 500 characters of the response string.
-                        Toast.makeText(activity, "Response is: "+ response.substring(0,500), Toast.LENGTH_LONG).show();
+                        //Toast.makeText(activity, "Response is: "+ response.substring(0,500), Toast.LENGTH_LONG).show();
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(activity, "That didn't work!", Toast.LENGTH_LONG).show();
+                Toast.makeText(activity, "Error! Item not upload to wall!", Toast.LENGTH_LONG).show();
             }
         });
 

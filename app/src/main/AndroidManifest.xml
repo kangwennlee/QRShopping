@@ -10,6 +10,9 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <uses-permission android:name="com.fingerprints.service.ACCESS_FINGERPRINT_MANAGER" />
+    <uses-permission android:name="com.samsung.android.providers.context.permission.WRITE_USE_APP_FEATURE_SURVEY" />
+
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
@@ -41,6 +44,7 @@
         <activity android:name=".AddCard" />
         <activity android:name=".TopUpActivity" />
         <activity android:name=".AddItem"></activity>
+        <activity android:name=".PurchaseHistory"></activity>
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -51,8 +55,11 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="eb25c5c70eb677120f8140f0f730158908ccd8c4" />
+
+
     </application>
-
-
-
 </manifest>

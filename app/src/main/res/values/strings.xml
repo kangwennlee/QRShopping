@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">QRShopping</string>
+    <string name="app_name">BuyLAH!!!</string>
 
     <!-- Auth UI - Error -->
     <string name="unknown_response">Unexpected onActivityResult response code</string>

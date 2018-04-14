@@ -1,15 +1,14 @@
 package tn30.sh181.qrshopping;
 
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -20,7 +19,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -106,11 +104,11 @@ public class PurchaseHistory extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            ArrayAdapter<Product> productAdapter = new ArrayAdapter<Product>(getApplicationContext(), R.layout.fragment_purchase_product, purchase.getProduct());
+            ArrayAdapter<Product> productAdapter = new ArrayAdapter<Product>(getContext(), R.layout.fragment_purchase_product, purchase.getProduct());
 
-            ProductAdapter productArrayAdapter = new ProductAdapter(getApplicationContext(), purchase.getProduct());
+            ProductAdapter productArrayAdapter = new ProductAdapter(getContext(), purchase.getProduct());
             productArrayAdapter.addAll(purchase.getProduct());
-            listViewPurchase.setAdapter(productArrayAdapter);
+            listViewPurchaseProduct.setAdapter(productArrayAdapter);
 
             // Future Improvement to view Purchase
             btnManage.setOnClickListener(new View.OnClickListener() {
@@ -125,7 +123,7 @@ public class PurchaseHistory extends AppCompatActivity {
     public class ProductAdapter extends ArrayAdapter<Product> {
         ArrayList<Product> products;
         ProductAdapter(Context context, ArrayList<Product> products){
-            super(context, R.layout.fragment_purchase_product, R.id.listViewPurchase);
+            super(context, R.layout.fragment_purchase_product, R.id.listViewPurchaseProduct);
             this.products = products;
         }
 
@@ -140,7 +138,7 @@ public class PurchaseHistory extends AppCompatActivity {
 
             Product product = getItem(position);
             txtViewProductName.setText(product.getProductName());
-            txtViewProductQuantity.setText('1');
+            txtViewProductQuantity.setText("1");
 
             return convertView;
         }

@@ -8,6 +8,7 @@ import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
+import com.crashlytics.android.answers.Answers;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
@@ -20,6 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.Arrays;
 
+import io.fabric.sdk.android.Fabric;
 import tn30.sh181.qrshopping.FirebaseClass.User;
 
 /**
@@ -35,6 +37,7 @@ public class LauncherActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Answers());
         setTheme(R.style.AppTheme);
         setContentView(R.layout.login);
     }
@@ -58,7 +61,7 @@ public class LauncherActivity extends AppCompatActivity {
         startActivityForResult(
                 AuthUI.getInstance().createSignInIntentBuilder()
                         //.setTheme(R.style.BlackBackground)
-                        .setLogo(R.drawable.ic_launcher_foreground)
+                        .setLogo(R.drawable.logo)
                         .setAvailableProviders(
                                 Arrays.asList(
                                         new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
