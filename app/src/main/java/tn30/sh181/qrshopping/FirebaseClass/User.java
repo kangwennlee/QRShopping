@@ -8,16 +8,12 @@ public class User {
     String name;
     String email;
     double balance;
-    String profilePic;
-    String phoneNo;
-    //User user;
+
     public User(String uid, String name, String email) {
         this.uid = uid;
         this.name = name;
         this.email = email;
         this.balance = 0;
-        this.profilePic = "";
-        this.phoneNo = "";
     }
 
     public User() {
@@ -25,22 +21,8 @@ public class User {
         this.name = "";
         this.email = "";
         this.balance = 0;
-        this.profilePic = "";
-        this.phoneNo = "";
     }
 
-    public String getPhoneNo() {
-        return phoneNo;
-    }
-
-    public void setPhoneNo(String phoneNo) {
-        this.phoneNo = phoneNo;
-    }
-
-    public void setProfilePic(String profilePic){
-        this.profilePic  = profilePic;
-
-    }
     public void setUid(String uid){
         this.uid = uid;
     }
@@ -55,10 +37,6 @@ public class User {
     }
 
     public String getUid(){return  this.uid;}
-
-    public String getProfilePic(){
-        return this.profilePic;
-    }
     public String getName(){
         return this.name;
     }
