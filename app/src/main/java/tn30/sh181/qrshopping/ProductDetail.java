@@ -3,6 +3,8 @@ package tn30.sh181.qrshopping;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -14,14 +16,22 @@ import com.google.firebase.database.ValueEventListener;
 import tn30.sh181.qrshopping.FirebaseClass.Product;
 
 public class ProductDetail extends AppCompatActivity {
-
-    TextView textview;
+    TextView txtViewProductName,txtViewProductCategory, txtViewProductPrice;
+    ImageView imgViewProduct;
+    Button btnProceed,btnCancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail);
-        textview = findViewById(R.id.textViewProduct);
+
+        txtViewProductName = findViewById(R.id.txtViewProductName);
+        txtViewProductCategory = findViewById(R.id.txtViewProductCategory);
+        txtViewProductPrice = findViewById(R.id.txtViewProductPrice);
+        imgViewProduct = findViewById(R.id.imgViewProduct);
+        btnProceed = findViewById(R.id.btnProceed);
+        btnCancel = findViewById(R.id.btnCancel);
+
         Intent intent = getIntent();
         String id = intent.getStringExtra("product");
 
@@ -34,9 +44,11 @@ public class ProductDetail extends AppCompatActivity {
         databaseProduct.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                textview.setText(dataSnapshot.child("productCategory").getValue().toString());
+                txtViewProductName.setText(dataSnapshot.child("productName").getValue().toString());
+                txtViewProductCategory.setText(dataSnapshot.child("productCategory").getValue().toString());
+                txtViewProductPrice.setText(dataSnapshot.child("productPrice").getValue().toString());
+                //imgViewProduct.setImageBitmap();
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
