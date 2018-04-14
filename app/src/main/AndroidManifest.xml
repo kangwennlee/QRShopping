@@ -9,7 +9,6 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="com.fingerprints.service.ACCESS_FINGERPRINT_MANAGER" />
     <uses-permission android:name="com.samsung.android.providers.context.permission.WRITE_USE_APP_FEATURE_SURVEY" />
 
@@ -24,7 +23,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LauncherActivity"
+        <activity
+            android:name=".LauncherActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,8 +43,8 @@
         <activity android:name=".ProductDetail" />
         <activity android:name=".AddCard" />
         <activity android:name=".TopUpActivity" />
-        <activity android:name=".AddItem"></activity>
-        <activity android:name=".PurchaseHistory"></activity>
+        <activity android:name=".AddItem" />
+        <activity android:name=".PurchaseHistory" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -60,6 +60,7 @@
             android:name="io.fabric.ApiKey"
             android:value="eb25c5c70eb677120f8140f0f730158908ccd8c4" />
 
-
+        <activity android:name=".CartList"></activity>
     </application>
+
 </manifest>
