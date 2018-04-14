@@ -9,8 +9,10 @@ public class Purchase {
     private ArrayList<Product> product;
 
     public Purchase(){}
-    public Purchase(String purchaseId, String purchaseDate, ArrayList<Product> product){
+    public Purchase(String purchaseId, Double balanceBefore, Double balanceAfter, ArrayList<Product> product){
         this.purchaseId = purchaseId;
+        this.balanceBefore = balanceBefore;
+        this.balanceAfter = balanceAfter;
         this.product = product;
     }
 
