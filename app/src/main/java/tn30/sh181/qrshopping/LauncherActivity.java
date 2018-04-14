@@ -58,7 +58,7 @@ public class LauncherActivity extends AppCompatActivity {
         startActivityForResult(
                 AuthUI.getInstance().createSignInIntentBuilder()
                         //.setTheme(R.style.BlackBackground)
-                        //.setLogo(R.drawable.logo)
+                        .setLogo(R.drawable.ic_launcher_foreground)
                         .setAvailableProviders(
                                 Arrays.asList(
                                         new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
