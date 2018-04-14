@@ -5,16 +5,14 @@ public class Product {
     private String productName;
     private String productCategory;
     private Double productPrice;
-    private String productStorageReference;
 
     public Product(){}
 
-    public Product(String productId, String productName, String productCategory, Double productPrice, String productStorageReference){
+    public Product(String productId, String productName, String productCategory, Double productPrice){
         this.productId = productId;
         this.productName = productName;
         this.productCategory = productCategory;
         this.productPrice = productPrice;
-        this.productStorageReference = productStorageReference;
     }
 
     public String getProductId() {
@@ -49,11 +47,4 @@ public class Product {
         this.productPrice = productPrice;
     }
 
-    public String getProductStorageReference() {
-        return productStorageReference;
-    }
-
-    public void setProductStorageReference(String productStorageReference) {
-        this.productStorageReference = productStorageReference;
-    }
 }

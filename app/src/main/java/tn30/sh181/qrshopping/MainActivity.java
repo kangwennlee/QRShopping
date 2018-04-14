@@ -23,6 +23,8 @@ import android.widget.Toast;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -31,6 +33,8 @@ import com.google.zxing.integration.android.IntentResult;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+
+import tn30.sh181.qrshopping.FirebaseClass.Product;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -63,7 +67,6 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
         buttonQR = findViewById(R.id.buttonQR);
         activity = this;
         buttonQR.setOnClickListener(new View.OnClickListener() {
@@ -72,6 +75,23 @@ public class MainActivity extends AppCompatActivity
                 IntentIntegrator integrator = new IntentIntegrator(activity);
                 integrator.setOrientationLocked(true);
                 integrator.initiateScan();
+            }
+        });
+        uploadProduct();
+    }
+
+    private void uploadProduct(){
+        String id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference databaseProduct = FirebaseDatabase.getInstance().getReference("Product");
+        Product product = new Product("P0001","Coke","Beverage",1.5);
+        databaseProduct.child("P0001").setValue(product, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                if (databaseError == null){
+                    Toast.makeText(activity, "Profile updated successfully!", Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(activity, databaseError.toString(), Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -170,23 +190,5 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private void retriveProductDetail(){
-        DatabaseReference databaseUser = FirebaseDatabase.getInstance().getReference("Product");
-//        databaseUser.child(id).child("Sell").child(date).setValue(purchase, new DatabaseReference.CompletionListener() {
-//            @Override
-//            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-//                if (databaseError == null) {
-//                    Intent intent = new Intent(getApplicationContext(), SuccessPaymentActivity.class);
-//                    intent.putExtra("purchase", values);
-//                    Toast.makeText(getApplicationContext(), "Payment Successful!", Toast.LENGTH_LONG).show();
-//                    startActivity(intent);
-//                    progressDialog.dismiss();
-//                    finish();
-//                } else {
-//                    Toast.makeText(getApplicationContext(), "Database failed. Please contact our customer service.", Toast.LENGTH_LONG).show();
-//
-//                }
-//            }
-//        });
-    }
+
 }
