@@ -7,30 +7,34 @@
     tools:context="tn30.sh181.qrshopping.ProductDetail"
     android:orientation="vertical"
     android:gravity="center">
-
     <TextView
         android:id="@+id/txtViewProductName"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_weight="2"/>
     <TextView
         android:id="@+id/txtViewProductCategory"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textIsSelectable="true"
+        android:layout_weight="0.5"/>
     <ImageView
         android:id="@+id/imgViewProduct"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_weight="10"/>
     <TextView
         android:id="@+id/txtViewProductPrice"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_weight="1"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center"
-        >
+        android:layout_weight="1."
+        android:gravity="center">
         <Button
             android:id="@+id/btnCancel"
             android:layout_width="wrap_content"
