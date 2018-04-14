@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 /**
@@ -13,7 +14,8 @@ import android.widget.TextView;
  */
 public class FragmentPurchaseHistory extends Fragment {
     Button btnManage;
-    TextView txtViewTransactionId,txtViewTransactionDate,txtViewProductName,txtViewProductQuantity;
+    TextView txtViewPurchaseId,txtViewPurchaseDate;
+    ListView listViewPurchaseProduct;
 
     public FragmentPurchaseHistory() {
         // Required empty public constructor
@@ -22,13 +24,12 @@ public class FragmentPurchaseHistory extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_purchase_history, container, false);
+
         btnManage = v.findViewById(R.id.btnManage);
-        txtViewTransactionId = v.findViewById(R.id.txtViewPurchaseId);
-        txtViewTransactionDate = v.findViewById(R.id.txtViewPurchaseDate);
-        txtViewProductName = v.findViewById(R.id.txtViewProductName);
-        txtViewProductQuantity = v.findViewById(R.id.txtViewProductQuantity);
+        txtViewPurchaseId = v.findViewById(R.id.txtViewPurchaseId);
+        txtViewPurchaseDate = v.findViewById(R.id.txtViewPurchaseDate);
+        listViewPurchaseProduct = v.findViewById(R.id.listViewPurchaseProduct);
 
         return v;
     }
-
 }

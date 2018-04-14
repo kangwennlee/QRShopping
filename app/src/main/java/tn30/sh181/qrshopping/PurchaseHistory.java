@@ -3,11 +3,13 @@ package tn30.sh181.qrshopping;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -18,8 +20,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
+import tn30.sh181.qrshopping.FirebaseClass.Product;
 import tn30.sh181.qrshopping.FirebaseClass.Purchase;
 
 public class PurchaseHistory extends AppCompatActivity {
@@ -29,7 +35,9 @@ public class PurchaseHistory extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_purchase_history);
+
         listViewPurchase = findViewById(R.id.listViewPurchase);
+
         retrievePurchaseHistory();
     }
 
@@ -56,7 +64,6 @@ public class PurchaseHistory extends AppCompatActivity {
 
     public class PurchaseAdapter extends ArrayAdapter<Purchase> {
         ArrayList<Purchase> purchases;
-        //private ArrayList<Product> product;
         PurchaseAdapter(Context context, ArrayList<Purchase> purchases){
             super(context, R.layout.activity_purchase_history, R.id.listViewPurchase);
             this.purchases = purchases;
@@ -71,14 +78,29 @@ public class PurchaseHistory extends AppCompatActivity {
             Button btnManage = convertView.findViewById(R.id.btnManage);
             TextView txtViewPurchaseId = convertView.findViewById(R.id.txtViewPurchaseId);
             TextView txtViewPurchaseDate = convertView.findViewById(R.id.txtViewPurchaseDate);
-            TextView txtViewProductName = convertView.findViewById(R.id.txtViewProductName);
-            TextView txtViewProductQuantity = convertView.findViewById(R.id.txtViewProductQuantity);
+            ListView listViewPurchaseProduct = convertView.findViewById(R.id.listViewPurchaseProduct);
 
             Purchase purchase = getItem(position);
             txtViewPurchaseId.setText(purchase.getPurchaseId());
-            txtViewPurchaseDate.setText(purchase.getPurchaseId());
-            txtViewProductName.setText(purchase.getProduct().getProductName());
-            txtViewProductQuantity.setText("1");
+
+            // trim and display date
+            String date = purchase.getPurchaseId().split("_")[0];
+            SimpleDateFormat curFormater = new SimpleDateFormat("yyyyMMdd");
+            Date dateObj = null;
+            try {
+                dateObj = curFormater.parse(date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            txtViewPurchaseDate.setText(DateFormat.format("dd/MM/yyyy ", dateObj));
+
+            ArrayAdapter<Product> productAdapter = new ArrayAdapter<Product>(getApplicationContext(), R.layout.fragment_purchase_product, purchase.getProduct());
+            listViewPurchaseProduct.setAdapter(productAdapter);
+
+
+            ProductAdapter productArrayAdapter = new ProductAdapter(getApplicationContext(), purchase.getProduct());
+            productArrayAdapter.addAll(purchase.getProduct());
+            listViewPurchase.setAdapter(productArrayAdapter);
 
             // Future Improvement to view Purchase
             btnManage.setOnClickListener(new View.OnClickListener() {
@@ -87,9 +109,30 @@ public class PurchaseHistory extends AppCompatActivity {
 
                 }
             });
+            return convertView;
+        }
+    }
+    public class ProductAdapter extends ArrayAdapter<Product> {
+        ArrayList<Product> products;
+        ProductAdapter(Context context, ArrayList<Product> products){
+            super(context, R.layout.fragment_purchase_product, R.id.listViewPurchase);
+            this.products = products;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            // Check if an existing view is being reused, otherwise inflate the view
+            if (convertView == null) {
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_purchase_product, parent, false);
+            }
+            TextView txtViewProductName = convertView.findViewById(R.id.txtViewProductName);
+            TextView txtViewProductQuantity = convertView.findViewById(R.id.txtViewProductQuantity);
+
+            Product product = getItem(position);
+            txtViewProductName.setText(product.getProductName());
+            txtViewProductQuantity.setText('1');
 
             return convertView;
         }
-
     }
 }

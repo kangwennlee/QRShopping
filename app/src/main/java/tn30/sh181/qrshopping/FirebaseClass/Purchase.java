@@ -1,38 +1,44 @@
 package tn30.sh181.qrshopping.FirebaseClass;
 
+import java.util.ArrayList;
+
 public class Purchase {
     private String purchaseId;
-    private String purchaseDate;
-    private Product product;
+    private Double balanceBefore;
+    private Double balanceAfter;
+    private ArrayList<Product> product;
 
     public Purchase(){}
-    public Purchase(String purchaseId, String purchaseDate, Product product){
+    public Purchase(String purchaseId, String purchaseDate, ArrayList<Product> product){
         this.purchaseId = purchaseId;
-        this.setPurchaseDate(purchaseDate);
         this.product = product;
     }
 
     public String getPurchaseId() {
         return purchaseId;
     }
-
     public void setPurchaseId(String purchaseId) {
         this.purchaseId = purchaseId;
     }
 
-    public Product getProduct() {
+    public ArrayList<Product> getProduct() {
         return product;
     }
-
-    public void setProduct(Product product) {
+    public void setProduct(ArrayList<Product> product) {
         this.product = product;
     }
 
-    public String getPurchaseDate() {
-        return purchaseDate;
+    public Double getBalanceBefore() {
+        return balanceBefore;
+    }
+    public void setBalanceBefore(Double balanceBefore) {
+        this.balanceBefore = balanceBefore;
     }
 
-    public void setPurchaseDate(String purchaseDate) {
-        this.purchaseDate = purchaseDate;
+    public Double getBalanceAfter() {
+        return balanceAfter;
+    }
+    public void setBalanceAfter(Double balanceAfter) {
+        this.balanceAfter = balanceAfter;
     }
 }
