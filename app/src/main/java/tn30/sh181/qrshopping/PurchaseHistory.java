@@ -21,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.ParseException;
+import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -55,7 +56,11 @@ public class PurchaseHistory extends AppCompatActivity {
                     //purchases.get(purchases.size()-1).setBalanceAfter(Double.parseDouble(ds.child("balanceAfter").getValue(String.class)));
                     ArrayList<Product> products = new ArrayList<>();
                     for(DataSnapshot dss : ds.child("productPurchased").getChildren()){
-                        products.add(ds.getValue(Product.class));
+                        Product product = new Product(dss.child("productId").getValue(String.class),
+                                dss.child("productName").getValue(String.class),
+                                dss.child("productCategory").getValue(String.class),
+                                dss.child("productPrice").getValue(Double.class));
+                        products.add(product);
                     }
                     purchases.get(purchases.size()-1).setProduct(products);
                 }
@@ -91,20 +96,17 @@ public class PurchaseHistory extends AppCompatActivity {
             Purchase purchase = getItem(position);
             txtViewPurchaseId.setText(purchase.getPurchaseId());
 
-            // trim and display date
-            String date = purchase.getPurchaseId().split("_")[0];
-            SimpleDateFormat curFormater = new SimpleDateFormat("yyyyMMdd");
-            Date dateObj = null;
             try {
-                dateObj = curFormater.parse(date);
-            } catch (ParseException e) {
+                // trim and display date
+                String date = purchase.getPurchaseId().split("_")[0];
+                SimpleDateFormat formater = new SimpleDateFormat("yyyyMMdd");
+                Date dateObj = formater.parse(date,new ParsePosition(5));
+                txtViewPurchaseDate.setText(DateFormat.format("dd/MM/yyyy ", dateObj));
+            } catch (NullPointerException e) {
                 e.printStackTrace();
             }
-            txtViewPurchaseDate.setText(DateFormat.format("dd/MM/yyyy ", dateObj));
 
             ArrayAdapter<Product> productAdapter = new ArrayAdapter<Product>(getApplicationContext(), R.layout.fragment_purchase_product, purchase.getProduct());
-            listViewPurchaseProduct.setAdapter(productAdapter);
-
 
             ProductAdapter productArrayAdapter = new ProductAdapter(getApplicationContext(), purchase.getProduct());
             productArrayAdapter.addAll(purchase.getProduct());
