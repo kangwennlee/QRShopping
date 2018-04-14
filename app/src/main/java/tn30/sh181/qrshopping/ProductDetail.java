@@ -35,11 +35,11 @@ public class ProductDetail extends AppCompatActivity {
         Intent intent = getIntent();
         String id = intent.getStringExtra("product");
 
-        retriveProductDetail(id);
+        retrieveProductDetail(id);
 
     }
 
-    private void retriveProductDetail(String id){
+    private void retrieveProductDetail(String id){
         DatabaseReference databaseProduct = FirebaseDatabase.getInstance().getReference("Product").child(id);
         databaseProduct.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
