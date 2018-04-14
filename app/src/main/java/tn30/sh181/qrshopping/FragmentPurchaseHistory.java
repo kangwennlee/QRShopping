@@ -23,8 +23,8 @@ public class FragmentPurchaseHistory extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_purchase_history, container, false);
         btnManage = v.findViewById(R.id.btnManage);
-        txtViewTransactionId = v.findViewById(R.id.txtViewTransactionId);
-        txtViewTransactionDate = v.findViewById(R.id.txtViewTransactionDate);
+        txtViewTransactionId = v.findViewById(R.id.txtViewPurchaseId);
+        txtViewTransactionDate = v.findViewById(R.id.txtViewPurchaseDate);
         txtViewProductName = v.findViewById(R.id.txtViewProductName);
         txtViewProductQuantity = v.findViewById(R.id.txtViewProductQuantity);
 
