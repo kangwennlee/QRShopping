@@ -1,40 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="tn30.sh181.qrshopping.ProductDetail"
-    android:orientation="vertical"
     android:gravity="center">
-    <TextView
-        android:id="@+id/txtViewProductName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="2"/>
-    <TextView
-        android:id="@+id/txtViewProductCategory"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textIsSelectable="true"
-        android:layout_weight="0.5"/>
+    <TableRow>
+        <TextView
+            android:text="Product Name:" />
+        <TextView
+            android:id="@+id/txtViewProductName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:text="Product Category: "/>
+        <TextView
+            android:id="@+id/txtViewProductCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </TableRow>
+
     <ImageView
         android:id="@+id/imgViewProduct"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="10"/>
-    <TextView
-        android:id="@+id/txtViewProductPrice"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"/>
-
+        android:layout_height="200dp" />
+    <TableRow>
+        <TextView
+            android:text="Product Price: "/>
+        <TextView
+            android:id="@+id/txtViewProductPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </TableRow>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_weight="1."
-        android:gravity="center">
+        android:gravity="center"
+        >
         <Button
             android:id="@+id/btnCancel"
             android:layout_width="wrap_content"
@@ -46,4 +53,4 @@
             android:layout_height="wrap_content"
             android:text="Proceed to Payment"/>
     </LinearLayout>
-</LinearLayout>
+</TableLayout>

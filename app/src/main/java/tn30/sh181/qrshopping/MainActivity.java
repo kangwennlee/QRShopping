@@ -2,6 +2,7 @@ package tn30.sh181.qrshopping;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
@@ -18,15 +19,21 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -41,6 +48,7 @@ public class MainActivity extends AppCompatActivity
 
     Button buttonQR;
     Activity activity;
+    TextView textViewName, textViewBalance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,23 +85,38 @@ public class MainActivity extends AppCompatActivity
                 integrator.initiateScan();
             }
         });
-        uploadProduct();
-    }
 
-    private void uploadProduct(){
-        String id = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        DatabaseReference databaseProduct = FirebaseDatabase.getInstance().getReference("Product");
-        Product product = new Product("P0001","Coke","Beverage",1.5);
-        databaseProduct.child("P0001").setValue(product, new DatabaseReference.CompletionListener() {
+        textViewName = findViewById(R.id.textViewName);
+        textViewBalance = findViewById(R.id.textViewBalance);
+        getUserInfo();
+
+        ImageButton imageButton = findViewById(R.id.imageButtonTopUp);
+        imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                if (databaseError == null){
-                    Toast.makeText(activity, "Profile updated successfully!", Toast.LENGTH_LONG).show();
-                }else{
-                    Toast.makeText(activity, databaseError.toString(), Toast.LENGTH_SHORT).show();
-                }
+            public void onClick(View v) {
+                Intent i = new Intent(activity,TopUpActivity.class);
+                startActivity(i);
             }
         });
+
+        //uploadProduct();
+    }
+
+    private void getUserInfo(){
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        final DatabaseReference databaseUser = FirebaseDatabase.getInstance().getReference("User").child(uid);
+        databaseUser.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                textViewName.setText("Welcome back " + dataSnapshot.child("name").getValue().toString()+"!");
+                textViewBalance.setText("Balance: RM "+dataSnapshot.child("balance").getValue().toString());
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     @Override
@@ -136,6 +159,8 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_camera) {
             // Handle the camera action
+            Intent i = new Intent(activity,AddItem.class);
+            startActivity(i);
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
