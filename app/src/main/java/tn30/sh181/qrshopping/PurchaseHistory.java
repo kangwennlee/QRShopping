@@ -53,6 +53,11 @@ public class PurchaseHistory extends AppCompatActivity {
                     purchases.get(purchases.size()-1).setPurchaseId(ds.getKey());
                     //purchases.get(purchases.size()-1).setBalanceBefore(Double.parseDouble(ds.child("balanceBefore").getValue(String.class)));
                     //purchases.get(purchases.size()-1).setBalanceAfter(Double.parseDouble(ds.child("balanceAfter").getValue(String.class)));
+                    ArrayList<Product> products = new ArrayList<>();
+                    for(DataSnapshot dss : ds.child("productPurchased").getChildren()){
+                        products.add(ds.getValue(Product.class));
+                    }
+                    purchases.get(purchases.size()-1).setProduct(products);
                 }
                 PurchaseAdapter arrayAdapter = new PurchaseAdapter(getApplicationContext(), purchases);
                 arrayAdapter.addAll(purchases);
