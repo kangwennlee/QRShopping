@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -47,28 +48,20 @@ public class PurchaseHistory extends AppCompatActivity {
     private void retrievePurchaseHistory(){
         final ArrayList<Purchase> purchases = new ArrayList<>();
         DatabaseReference databaseProduct = FirebaseDatabase.getInstance().getReference().child("Purchase").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
-
         databaseProduct.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
                     purchases.add(ds.getValue(Purchase.class));
-                    purchases.get(purchases.size()-1).setPurchaseId(ds.getKey());
-                    //purchases.get(purchases.size()-1).setBalanceBefore(Double.parseDouble(ds.child("balanceBefore").getValue(String.class)));
-                    //purchases.get(purchases.size()-1).setBalanceAfter(Double.parseDouble(ds.child("balanceAfter").getValue(String.class)));
-                    ArrayList<Product> products = new ArrayList<>();
-                    for(DataSnapshot dss : ds.child("productPurchased").getChildren()){
-                        Product product = new Product(dss.child("productId").getValue(String.class),
-                                dss.child("productName").getValue(String.class),
-                                dss.child("productCategory").getValue(String.class),
-                                dss.child("productPrice").getValue(Double.class));
-                        products.add(product);
-                    }
-                    purchases.get(purchases.size()-1).setProduct(products);
+                    ds.getKey();
                 }
-                PurchaseAdapter arrayAdapter = new PurchaseAdapter(getApplicationContext(), purchases);
-                arrayAdapter.addAll(purchases);
-                listViewPurchase.setAdapter(arrayAdapter);
+                if(purchases.size() == 0){
+                    Toast.makeText(getApplicationContext(), "Purchases Empty ! Please Purchase An Item First Before Proceed.", Toast.LENGTH_SHORT).show();
+                }else{
+                    PurchaseAdapter arrayAdapter = new PurchaseAdapter(getApplicationContext(), purchases);
+                    arrayAdapter.addAll(purchases);
+                    listViewPurchase.setAdapter(arrayAdapter);
+                }
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -111,15 +104,15 @@ public class PurchaseHistory extends AppCompatActivity {
                 String date = purchase.getPurchaseId().split("_")[0];
                 SimpleDateFormat formater = new SimpleDateFormat("yyyyMMdd");
                 Date dateObj = formater.parse(date,new ParsePosition(5));
+
                 txtViewPurchaseDate.setText(DateFormat.format("dd/MM/yyyy ", dateObj));
             } catch (NullPointerException e) {
                 e.printStackTrace();
             }
 
-            ArrayAdapter<Product> productAdapter = new ArrayAdapter<Product>(getContext(), R.layout.fragment_purchase_product, purchase.getProduct());
-
-            ProductAdapter productArrayAdapter = new ProductAdapter(getContext(), purchase.getProduct());
-            productArrayAdapter.addAll(purchase.getProduct());
+            ArrayAdapter<Product> productAdapter = new ArrayAdapter<Product>(getContext(), R.layout.fragment_purchase_product, purchase.getProduct().getCarts());
+            ProductAdapter productArrayAdapter = new ProductAdapter(getContext(), purchase.getProduct().getCarts());
+            productArrayAdapter.addAll(purchase.getProduct().getCarts());
             listViewPurchaseProduct.setAdapter(productArrayAdapter);
 
             // Future Improvement to view Purchase

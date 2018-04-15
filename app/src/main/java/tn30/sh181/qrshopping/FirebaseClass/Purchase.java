@@ -6,14 +6,16 @@ public class Purchase {
     private String purchaseId;
     private Double balanceBefore;
     private Double balanceAfter;
-    private ArrayList<Product> product;
+    private Cart productPurchased;
+    private Double purchaseAmount;
 
     public Purchase(){}
-    public Purchase(String purchaseId, Double balanceBefore, Double balanceAfter, ArrayList<Product> product){
+    public Purchase(String purchaseId,Double balanceBefore, Double balanceAfter,Cart productPurchased, Double purchaseAmount){
         this.purchaseId = purchaseId;
         this.balanceBefore = balanceBefore;
         this.balanceAfter = balanceAfter;
-        this.product = product;
+        this.productPurchased = productPurchased;
+        this.purchaseAmount = purchaseAmount;
     }
 
     public String getPurchaseId() {
@@ -23,11 +25,11 @@ public class Purchase {
         this.purchaseId = purchaseId;
     }
 
-    public ArrayList<Product> getProduct() {
-        return product;
+    public Cart getProduct() {
+        return productPurchased;
     }
-    public void setProduct(ArrayList<Product> product) {
-        this.product = product;
+    public void setProduct(Cart product) {
+        this.productPurchased = product;
     }
 
     public Double getBalanceBefore() {
@@ -42,5 +44,12 @@ public class Purchase {
     }
     public void setBalanceAfter(Double balanceAfter) {
         this.balanceAfter = balanceAfter;
+    }
+
+    public Double getPurchaseAmount() {
+        return purchaseAmount;
+    }
+    public void setPurchaseAmount(Double purchaseAmount) {
+        this.purchaseAmount = purchaseAmount;
     }
 }
