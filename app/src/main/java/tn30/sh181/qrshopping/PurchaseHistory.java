@@ -127,7 +127,7 @@ public class PurchaseHistory extends AppCompatActivity {
                 }
             });
 
-            LinearLayout linearLayout = findViewById(R.id.layoutProd);
+            LinearLayout linearLayout = convertView.findViewById(R.id.layoutProd);
             for(Product prod : products){
                 TextView txtViewProductName = new TextView(getContext());
                 txtViewProductName.setText(prod.getProductName());
