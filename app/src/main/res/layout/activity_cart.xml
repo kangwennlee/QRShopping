@@ -1,32 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CartList"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".CartList">
 
     <ListView
         android:id="@+id/listViewCart"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </ListView>
+        android:layout_height="wrap_content"></ListView>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <TextView
-            android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textAlignment="viewEnd"
-            android:text="Total Amount : "/>
+            android:layout_weight="1"
+            android:text="Total Amount : "
+            android:textAlignment="viewEnd" />
         <TextView
             android:id="@+id/txtViewTotalAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="300.00"/>
+            android:text="0.00" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
