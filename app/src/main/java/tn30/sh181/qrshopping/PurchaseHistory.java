@@ -111,10 +111,13 @@ public class PurchaseHistory extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            ProductAdapter productArrayAdapter = new ProductAdapter(getContext(), purchase.getProductPurchased().getCarts());
-            productArrayAdapter.addAll(purchase.getProductPurchased().getCarts());
+            ArrayList<Product> products = purchase.getProductPurchased().getCarts();
+            ProductAdapter productArrayAdapter = new ProductAdapter(getContext(), products);
+
+            productArrayAdapter.addAll(products);
             listViewPurchaseProduct.setAdapter(productArrayAdapter);
-            Toast.makeText(getContext(), purchase.getProductPurchased().getCarts() + "", Toast.LENGTH_LONG);
+            Toast.makeText(getContext(), products + "", Toast.LENGTH_LONG).show();
+            
             // Future Improvement to view Purchase
             btnManage.setOnClickListener(new View.OnClickListener() {
                 @Override
