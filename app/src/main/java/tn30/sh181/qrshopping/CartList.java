@@ -142,6 +142,7 @@ public class CartList extends AppCompatActivity {
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
                     String currentDateandTime = sdf.format(new Date());
                     DatabaseReference purchaseReference = FirebaseDatabase.getInstance().getReference().child("Purchase").child(FirebaseAuth.getInstance().getUid()).child(currentDateandTime);
+                    purchaseReference.child("purchaseId").setValue(currentDateandTime);
                     purchaseReference.child("purchaseAmount").setValue(amt);
                     purchaseReference.child("balanceBefore").setValue(balance);
                     purchaseReference.child("balanceAfter").setValue(newBalance);

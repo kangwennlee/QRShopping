@@ -21,7 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.ParsePosition;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -48,7 +48,7 @@ public class PurchaseHistory extends AppCompatActivity {
     private void retrievePurchaseHistory(){
         final ArrayList<Purchase> purchases = new ArrayList<>();
         DatabaseReference databaseProduct = FirebaseDatabase.getInstance().getReference().child("Purchase").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
-        databaseProduct.addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseProduct.orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
@@ -63,6 +63,7 @@ public class PurchaseHistory extends AppCompatActivity {
                     listViewPurchase.setAdapter(arrayAdapter);
                 }
             }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
@@ -101,18 +102,18 @@ public class PurchaseHistory extends AppCompatActivity {
 
             try {
                 // trim and display date
-                String date = purchase.getPurchaseId().split("_")[0];
-                SimpleDateFormat formater = new SimpleDateFormat("yyyyMMdd");
-                Date dateObj = formater.parse(date,new ParsePosition(5));
-
-                txtViewPurchaseDate.setText(DateFormat.format("dd/MM/yyyy ", dateObj));
+                SimpleDateFormat formater = new SimpleDateFormat("yyyyMMdd_HHmmss");
+                Date dateObj = formater.parse(purchase.getPurchaseId());
+                txtViewPurchaseDate.setText(DateFormat.format("dd/MM/yyyy HH:mm", dateObj));
             } catch (NullPointerException e) {
+                e.printStackTrace();
+            } catch (ParseException e) {
                 e.printStackTrace();
             }
 
-            ArrayAdapter<Product> productAdapter = new ArrayAdapter<Product>(getContext(), R.layout.fragment_purchase_product, purchase.getProduct().getCarts());
-            ProductAdapter productArrayAdapter = new ProductAdapter(getContext(), purchase.getProduct().getCarts());
-            productArrayAdapter.addAll(purchase.getProduct().getCarts());
+            //ArrayAdapter<Product> productAdapter = new ArrayAdapter<Product>(getContext(), R.layout.fragment_purchase_product, purchase.getProduct().getCarts());
+            ProductAdapter productArrayAdapter = new ProductAdapter(getContext(), purchase.getProductPurchased().getCarts());
+            productArrayAdapter.addAll(purchase.getProductPurchased().getCarts());
             listViewPurchaseProduct.setAdapter(productArrayAdapter);
 
             // Future Improvement to view Purchase
