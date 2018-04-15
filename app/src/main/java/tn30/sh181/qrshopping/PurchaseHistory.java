@@ -167,6 +167,7 @@ public class PurchaseHistory extends AppCompatActivity {
     public class ProductAdapter2 extends ArrayAdapter<String> {
         ArrayList<Product> products;
         Context c;
+        String[] prodID;
 
         ProductAdapter2(Context context, ArrayList<Product> products, String[] prodID) {
             super(context, R.layout.fragment_purchase_history, R.id.listViewPurchaseProduct, prodID);
