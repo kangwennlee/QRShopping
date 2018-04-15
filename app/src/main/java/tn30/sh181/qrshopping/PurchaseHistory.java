@@ -111,11 +111,10 @@ public class PurchaseHistory extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            //ArrayAdapter<Product> productAdapter = new ArrayAdapter<Product>(getContext(), R.layout.fragment_purchase_product, purchase.getProduct().getCarts());
             ProductAdapter productArrayAdapter = new ProductAdapter(getContext(), purchase.getProductPurchased().getCarts());
             productArrayAdapter.addAll(purchase.getProductPurchased().getCarts());
             listViewPurchaseProduct.setAdapter(productArrayAdapter);
-
+            Toast.makeText(getContext(), purchase.getProductPurchased().getCarts() + "", Toast.LENGTH_LONG);
             // Future Improvement to view Purchase
             btnManage.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -130,7 +129,7 @@ public class PurchaseHistory extends AppCompatActivity {
     public class ProductAdapter extends ArrayAdapter<Product> {
         ArrayList<Product> products;
         ProductAdapter(Context context, ArrayList<Product> products){
-            super(context, R.layout.fragment_purchase_product, R.id.listViewPurchaseProduct);
+            super(context, R.layout.fragment_purchase_history, R.id.listViewPurchaseProduct);
             this.products = products;
         }
 
