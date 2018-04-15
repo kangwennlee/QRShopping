@@ -66,19 +66,19 @@ public class CartList extends AppCompatActivity {
 
     private void retrieveCart(){
         DatabaseReference databaseProduct = FirebaseDatabase.getInstance().getReference().child("Cart").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
-
         databaseProduct.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 cart = dataSnapshot.getValue(Cart.class);
                 if (cart == null) {
                     //Handle the error when the cart does not exist
+                    Toast.makeText(getApplicationContext(), "Cart Empty ! Please Add An Item to Cart Before Proceed.", Toast.LENGTH_SHORT).show();
+                }else{
+                    CartAdapter arrayAdapter = new CartAdapter(getApplicationContext(), cart);
+                    arrayAdapter.addAll(cart.getCarts());
+                    listViewCart.setAdapter(arrayAdapter);
+                    txtViewTotalAmount.setText(cart.getTotal().toString());
                 }
-                CartAdapter arrayAdapter = new CartAdapter(getApplicationContext(), cart);
-                arrayAdapter.addAll(cart.getCarts());
-                listViewCart.setAdapter(arrayAdapter);
-
-                txtViewTotalAmount.setText(cart.getTotal().toString());
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
