@@ -145,7 +145,7 @@ public class AddItem extends AppCompatActivity {
                 }
             }
         });
-        String url = "http://60.49.35.143:2224/InsertProduct.aspx?pid=" + product.getProductId() + "&pname=" + product.getProductName() + "&pprice=" + product.getProductPrice();
+        String url = "http://60.49.35.143:2224/InsertProduct.aspx?pid=" + product.getProductId() + "&pname=" + product.getProductName() + "&pprice=" + product.getProductPrice() + "&action=insert";
         sendToWall(url);
     }
 
