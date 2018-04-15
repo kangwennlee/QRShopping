@@ -113,12 +113,11 @@ public class PurchaseHistory extends AppCompatActivity {
             }
 
             ArrayList<Product> products = purchase.getProductPurchased().getCarts();
-/*            ProductAdapter productArrayAdapter = new ProductAdapter(getContext(), products);
-
+            ProductAdapter productArrayAdapter = new ProductAdapter(getContext(), products);
             productArrayAdapter.addAll(products);
             listViewPurchaseProduct.setAdapter(productArrayAdapter);
             Toast.makeText(getContext(), products + "", Toast.LENGTH_LONG).show();
-*/
+
             // Future Improvement to view Purchase
             btnManage.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -127,22 +126,6 @@ public class PurchaseHistory extends AppCompatActivity {
                 }
             });
 
-            LinearLayout linearLayout = convertView.findViewById(R.id.layoutProd);
-            for(Product prod : products){
-                TextView txtViewProductName = new TextView(getContext());
-                txtViewProductName.setText(prod.getProductName());
-                txtViewProductName.setLayoutParams(new ViewGroup.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT));
-                linearLayout.addView(txtViewProductName);
-
-                TextView txtViewProductQty = new TextView(getContext());
-                txtViewProductQty.setText("QTY : 1");
-                txtViewProductQty.setLayoutParams(new ViewGroup.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT));
-                linearLayout.addView(txtViewProductQty);
-            }
             return convertView;
         }
     }
