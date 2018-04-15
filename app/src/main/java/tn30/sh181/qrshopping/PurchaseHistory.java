@@ -131,11 +131,17 @@ public class PurchaseHistory extends AppCompatActivity {
             for(Product prod : products){
                 TextView txtViewProductName = new TextView(getContext());
                 txtViewProductName.setText(prod.getProductName());
+                txtViewProductName.setLayoutParams(new ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT));
                 linearLayout.addView(txtViewProductName);
 
                 TextView txtViewProductQty = new TextView(getContext());
-                txtViewProductName.setText("QTY : 1");
-                linearLayout.addView(txtViewProductName);
+                txtViewProductQty.setText("QTY : 1");
+                txtViewProductQty.setLayoutParams(new ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT));
+                linearLayout.addView(txtViewProductQty);
             }
             return convertView;
         }
