@@ -48,6 +48,11 @@
             style="@style/Base.Widget.AppCompat.Button.Borderless"
             android:text="Manage"/>
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/layoutProd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"></LinearLayout>
     <ListView
         android:id="@+id/listViewPurchaseProduct"
         android:layout_width="match_parent"

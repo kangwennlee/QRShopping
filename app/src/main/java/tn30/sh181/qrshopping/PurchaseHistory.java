@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -112,12 +113,12 @@ public class PurchaseHistory extends AppCompatActivity {
             }
 
             ArrayList<Product> products = purchase.getProductPurchased().getCarts();
-            ProductAdapter productArrayAdapter = new ProductAdapter(getContext(), products);
+/*            ProductAdapter productArrayAdapter = new ProductAdapter(getContext(), products);
 
             productArrayAdapter.addAll(products);
             listViewPurchaseProduct.setAdapter(productArrayAdapter);
             Toast.makeText(getContext(), products + "", Toast.LENGTH_LONG).show();
-            
+*/
             // Future Improvement to view Purchase
             btnManage.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -125,6 +126,17 @@ public class PurchaseHistory extends AppCompatActivity {
 
                 }
             });
+
+            LinearLayout linearLayout = findViewById(R.id.layoutProd);
+            for(Product prod : products){
+                TextView txtViewProductName = new TextView(getContext());
+                txtViewProductName.setText(prod.getProductName());
+                linearLayout.addView(txtViewProductName);
+
+                TextView txtViewProductQty = new TextView(getContext());
+                txtViewProductName.setText("QTY : 1");
+                linearLayout.addView(txtViewProductName);
+            }
             return convertView;
         }
     }
@@ -134,6 +146,29 @@ public class PurchaseHistory extends AppCompatActivity {
         ProductAdapter(Context context, ArrayList<Product> products){
             super(context, R.layout.fragment_purchase_history, R.id.listViewPurchaseProduct);
             this.products = products;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            // Check if an existing view is being reused, otherwise inflate the view
+            if (convertView == null) {
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_purchase_product, parent, false);
+            }
+            TextView txtViewProductName = convertView.findViewById(R.id.txtViewProductName);
+            TextView txtViewProductQuantity = convertView.findViewById(R.id.txtViewProductQuantity);
+
+            Product product = getItem(position);
+            txtViewProductName.setText(product.getProductName());
+            txtViewProductQuantity.setText("1");
+
+            return convertView;
+        }
+    }
+    public class ProductAdapter2 extends ArrayAdapter<Product> {
+        String[] products;
+        ProductAdapter2(Context context, ArrayList<Product> products){
+            super(context, R.layout.fragment_purchase_history, R.id.listViewPurchaseProduct);
+            this.products = products.toArray(new String[0]);
         }
 
         @Override
