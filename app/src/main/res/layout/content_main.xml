@@ -4,37 +4,49 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
+    android:gravity="top|center"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="tn30.sh181.qrshopping.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/logo" />
+
     <TextView
         android:id="@+id/textViewName"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp" />
+
     <TextView
         android:id="@+id/textViewBalance"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:text="Start Shopping!" />
 
     <Button
         android:id="@+id/buttonQR"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Scan QR" />
+        android:layout_marginTop="20dp"
+        android:drawableLeft="@drawable/ic_camera_enhance_black_24dp"
+        android:text=" Scan QR" />
 
     <LinearLayout
         android:id="@+id/functionLayout"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_below="@+id/userProfile"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:baselineAligned="false"
         android:orientation="horizontal">
 
@@ -57,7 +69,7 @@
                     android:layout_height="50dp"
                     android:background="@color/zxing_transparent"
                     android:contentDescription="Top Up Wallet"
-                    android:src="@drawable/ic_add_box_black_24dp" />
+                    android:src="@drawable/ic_account_balance_wallet_black_24dp" />
 
                 <TextView
                     android:id="@+id/textView4"
@@ -84,7 +96,7 @@
                 android:layout_height="50dp"
                 android:background="@color/zxing_transparent"
                 android:contentDescription="Purchase History"
-                android:src="@drawable/ic_add_box_black_24dp" />
+                android:src="@drawable/ic_history_black_24dp" />
 
             <TextView
                 android:id="@+id/textView7"

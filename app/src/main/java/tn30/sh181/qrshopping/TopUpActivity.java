@@ -3,6 +3,7 @@ package tn30.sh181.qrshopping;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,6 +19,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.jesusm.kfingerprintmanager.KFingerprintManager;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,6 +30,7 @@ import java.util.Date;
 import java.util.Objects;
 
 public class TopUpActivity extends AppCompatActivity {
+    private static final String KEY = "KEY";
     Button btnNext, btnCancel;
     EditText txtAmount;
     Spinner spinBankType;
@@ -34,6 +40,10 @@ public class TopUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_top_up);
+
+        getSupportActionBar().setTitle("Top Up Wallet");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         txtAmount = findViewById(R.id.txtAmount);
         spinBankType = findViewById(R.id.spinBankType);
@@ -84,7 +94,7 @@ public class TopUpActivity extends AppCompatActivity {
                 String str = spinBankType.getSelectedItem().toString();
                 String amt = txtAmount.getText().toString();
                 if(!Objects.equals(str,"--Select a card--")&&!amt.equals("")&&!Objects.equals(str,"Add New Card")){
-                    btnTopUpClicked();
+                    fingerAuth();
                 }else{
                     if(amt.equals("")){
                         Toast.makeText(getApplicationContext(), "Please enter top up amount", Toast.LENGTH_SHORT).show();
@@ -108,6 +118,14 @@ public class TopUpActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void btnTopUpClicked() {
@@ -135,5 +153,46 @@ public class TopUpActivity extends AppCompatActivity {
         finish();
     }
 
+    private void fingerAuth() {
+        createFingerprintManagerInstance().authenticate(new KFingerprintManager.AuthenticationCallback() {
+            @Override
+            public void onAuthenticationSuccess() {
+                //messageText.setText("Successfully authenticated");
+                btnTopUpClicked();
+            }
+
+            @Override
+            public void onSuccessWithManualPassword(@NotNull String password) {
+                //messageText.setText("Manual password: " + password);
+            }
+
+            @Override
+            public void onFingerprintNotRecognized() {
+                //messageText.setText("Fingerprint not recognized");
+            }
+
+            @Override
+            public void onAuthenticationFailedWithHelp(@Nullable String help) {
+                //messageText.setText(help);
+            }
+
+            @Override
+            public void onFingerprintNotAvailable() {
+                //messageText.setText("Fingerprint not available");
+            }
+
+            @Override
+            public void onCancelled() {
+                //messageText.setText("Operation cancelled by user");
+            }
+        }, getSupportFragmentManager());
+
+    }
+
+    private KFingerprintManager createFingerprintManagerInstance() {
+        KFingerprintManager fingerprintManager = new KFingerprintManager(this, KEY);
+        //fingerprintManager.setAuthenticationDialogStyle(dialogTheme);
+        return fingerprintManager;
+    }
 
 }

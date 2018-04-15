@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="tn30.sh181.qrshopping.ProductDetail"
-    android:gravity="center">
+    android:gravity="center"
+    tools:context="tn30.sh181.qrshopping.ProductDetail">
     <TableRow>
         <TextView
             android:text="Product Name:" />
@@ -39,8 +38,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:gravity="center"
+        android:orientation="horizontal"
         >
         <Button
             android:id="@+id/btnCancel"
@@ -51,6 +50,6 @@
             android:id="@+id/btnProceed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Proceed to Payment"/>
+            android:text="Add to cart" />
     </LinearLayout>
 </TableLayout>

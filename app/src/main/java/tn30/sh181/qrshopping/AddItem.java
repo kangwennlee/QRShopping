@@ -14,6 +14,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -64,6 +65,11 @@ public class AddItem extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
+
+        getSupportActionBar().setTitle("Add Item Onto Wall");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         editTextID = findViewById(R.id.editTextID);
         editTextCategory = findViewById(R.id.editTextCategory);
         editTextName = findViewById(R.id.editTextName);
@@ -97,9 +103,14 @@ public class AddItem extends AppCompatActivity {
         buttonUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progressDialog.show();
-                Product product = new Product(editTextID.getText().toString(),editTextName.getText().toString(),editTextCategory.getText().toString(),Double.parseDouble(editTextPrice.getText().toString()));
-                uploadProduct(product);
+                if (editTextID.getText().toString().matches("P\\d\\d\\d\\d")) {
+                    progressDialog.show();
+                    Product product = new Product(editTextID.getText().toString(), editTextName.getText().toString(), editTextCategory.getText().toString(), Double.parseDouble(editTextPrice.getText().toString()));
+                    uploadProduct(product);
+                } else {
+                    Toast.makeText(activity, "Invalid Item ID!", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
     }
@@ -258,5 +269,13 @@ public class AddItem extends AppCompatActivity {
             resizedWidth = maxDimension;
         }
         return Bitmap.createScaledBitmap(bitmap, resizedWidth, resizedHeight, false);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
